@@ -1,21 +1,14 @@
+# Copyright (c) 2011 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
 #
-# Initial simple Makefile for rollog, to be battered into shape later.
-#
-PROG=	rollog
-ARCH=	-m32
+# Simple Makefile for rollog.
 
-CFLAGS+= -I. $(ARCH) -static
-CFLAGS+= -Wall -Werror
-SRCS=	main.c
-OBJS=	$(SRCS:.c=.o)
+include common.mk
 
-all: $(PROG)
+rollog_OBJS= main.o
 
-$(OBJS): $(SRCS)
+clean: CLEAN(rollog)
+all: CC_BINARY(rollog)
 
-$(PROG): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
-
-clean:
-	rm -f $(PROG) $(OBJS)
-
+CC_BINARY(rollog): $(rollog_OBJS)
